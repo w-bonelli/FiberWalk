@@ -1,8 +1,7 @@
 FiberWalks/
 tmp/
 dists*
-lattice*
-walk*
+output*
 .idea/
 *.pyc
 venv/

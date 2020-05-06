@@ -60,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 # !/usr/bin/python
 
-import Lattice as L
+import lattice as L
 import os
 import pickle
 import numpy as np
@@ -433,7 +433,7 @@ class FiberWalk():
         return True
 
     # The function to call for executing a Fiber Walk simulation
-    def fiber_walk(self, steps = 100, frequency = 2, position = 'center'):
+    def walk(self, steps = 100, frequency = 2, position ='center'):
 
         # init all Walks
 

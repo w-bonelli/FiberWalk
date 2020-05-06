@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # !/usr/bin/python
 
-import FiberWalk as fw
+import walk as fw
 import os
 import pickle
 import networkx as nx
@@ -74,8 +74,8 @@ from scipy import polyfit, polyval, sqrt
 
 
 # simple helper function to generate names to save
-def saveName():
-    fname = '_Contraction' + str(numberOfContractions) + '_Steps' + str(numberOfSteps)
+def save_name():
+    fname = '_Contraction' + str(contractions) + '_Steps' + str(steps)
     fpath = './FiberWalks/' + str(dimension) + 'D/'
     print 'Checking directory structure: ' + fpath
     try:
@@ -86,7 +86,7 @@ def saveName():
 
 
 # Log Log Plot of the distances to origin
-def makeAvgDistanceFigure(fname, fpath, allDists, numberOfSteps):
+def make_avg_distance_figure(fname, fpath, allDists, numberOfSteps):
     maxLength = 0
     maxIdx = 0
     minL = numberOfSteps - 1
@@ -112,6 +112,7 @@ def makeAvgDistanceFigure(fname, fpath, allDists, numberOfSteps):
     logY = np.log(allY[1:])
     a = logY[30:minL]
     b = logDists[30:minL]
+    # TODO: polyfit fails for small walk lengths (e.g., 10). Why?
     (ar, br) = polyfit(a, b, 1)
     xr = polyval([ar, br], logY[30:minL])
     xr = np.exp(xr)
@@ -141,15 +142,15 @@ def makeAvgDistanceFigure(fname, fpath, allDists, numberOfSteps):
 
 # Fiber Walk parameters
 dimension = 2  # choose dimension
-numberOfSteps = 100  # choose the length of the walk
-numberOfObjects = 5  # choose number of walks to be generated
-numberOfContractions = 1  # choose number of contractions per step
+steps = 100  # choose the length of the walk
+walks = 5  # choose number of walks to be generated
+contractions = 1  # choose number of contractions per step
 
 print 'Initializing Fiber Walk'
-FW = fw.FiberWalk(dimension, numberOfObjects, numberOfContractions)
+FW = fw.FiberWalk(dimension, walks, contractions)
 print 'The Fiber walks ...'
-FW.fiber_walk(numberOfSteps)
-fname, fpath = saveName()
+FW.walk(steps)
+fname, fpath = save_name()
 
 # getting data
 walk = FW.get_walk()
@@ -172,5 +173,5 @@ infile.close()
 print 'Example of showing loaded data'
 print distsLoad
 # make a plot
-makeAvgDistanceFigure(fname, fpath, distsLoad, numberOfSteps)
+make_avg_distance_figure(fname, fpath, distsLoad, steps)
 print 'The Fiber walked ;-)'

@@ -1,32 +1,35 @@
-''
-FIBER WALK DEMO
+# FiberWalk
 
-The Fiber Walk class to run a Fiber Walk simulation.
+The Fiberwalk demo depends on:
+- Python 2.7
+- [`networkx`](http://networkx.lanl.gov/) 2.2
+- [`numpy`](http://sourceforge.net/projects/numpy/) 1.16
+- [`scipy`](http://www.scipy.org/SciPy) 1.2.3
+- [`matplotlib`](https://matplotlib.org/) 2.2.5
+- the modules `lattice` and `fiberWalk`
 
-The demo uses:
-- the networkX package (http://networkx.lanl.gov/)
-- the numpy package (http://sourceforge.net/projects/numpy/)
-- the scipy package (http://www.scipy.org/SciPy)
-- the classes Lattice and FiberWalk written by Alexander Bucksch
+Older library versions may work, but are not guaranteed to.
 
-Note: The graphics shown in the paper where generated with mayavi2
-(http://docs.enthought.com/mayavi/mayavi/index.html)
+The graphics shown in the paper where generated with [mayavi2](http://docs.enthought.com/mayavi/mayavi/index.html).
 
 The code is free for non-commercial use.
 Please contact the author for commercial use.
 
-Please cite the Fiber Walk Paper if you use the code for your scientific project.
+Please cite the FiberWalk paper if you use the code for your project.
 http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0085585
--------------------------------------------------------------------------------------------
+
+# Author
+
 Author: Alexander Bucksch
 Department of Plant Biology
 Warnell School of Forestry and Natural Resources
 Institute of Bioinformatics
-University of GEorgia, Athens
+University of Georgia, Athens
 
 Mail: bucksch@uga.edu
 Web: http://www.computational-plant-science.org
--------------------------------------------------------------------------------------------
+
+## License
 
 Copyright (c) 2012, 2016 Alexander Bucksch
 All rights reserved.
@@ -62,11 +65,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
 
-INSTRUCTIONS
+## Running the demo
 
-Running the demo:
-
-1.) make sure you have python 2.3, numpy 1.3, scipy 0.9 and networkX 1.7 properly installed
+1.) make sure you have python 2.7, numpy 1.3, scipy 0.9 and networkX 1.7 properly installed
 The Demo may run with older versions, but no guarantee 
 
 2.) copy the files Lattice.py, FiberWalk.py and main.py to a folder your choice.
@@ -81,15 +82,16 @@ The Demo may run with older versions, but no guarantee
 
 Changing walk parameters:
 
-1.) open main.py in a text editor
-
 2.) search for the following section
 
-#Fiber Walk parameters    
-dimension = 2 # choose dimension
-numberOfSteps = 100 # choose the length of the walk
-numberOfObjects = 5 # choose number of walks to be generated
-numberOfContractions = 1 # choose number of contractions per step
+### Configure Parameters    
+
+Open main.py in a text editor, then search for the following variables:
+
+`dimension`: Number of dimensions, defaults to 2.
+`numberOfSteps`: Length of the walk, defaults to 100 steps.
+`numberOfObjects`: Number of walks to simulate, defaults to 10.
+`numberOfContractions`: Number of contractions per step, defaults to 1.
 
 3.) adjust the variables as you wish
 
