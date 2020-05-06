@@ -49,5 +49,7 @@ Institute of Bioinformatics
 
 University of Georgia, Athens
 
+## Contact
+
 - Email: bucksch@uga.edu
 - Web: http://www.computational-plant-science.org
