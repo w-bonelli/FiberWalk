@@ -1,0 +1,8 @@
+FiberWalks/
+tmp/
+dists*
+lattice*
+walk*
+.idea/
+*.pyc
+venv/
