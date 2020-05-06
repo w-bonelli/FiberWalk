@@ -72,7 +72,7 @@ class FiberWalk():
     def __init__(self, dim, objects=1, contractions=1, min_length=0):
         self.__lattice = L.Lattice(dim)  # the lattice
         self.__walk = nx.Graph()  # The walk itself as a networkX object
-        self.__dim = dim  # dimension of the walk
+        self.__dim = dim  # dimensions of the walk
         self.__min_length = min_length
         self.__contractions = contractions
         self.__positions = []

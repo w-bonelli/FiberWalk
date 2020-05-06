@@ -6,7 +6,7 @@ The Fiberwalk demo depends on:
 - [`numpy`](http://sourceforge.net/projects/numpy/) 1.16
 - [`scipy`](http://www.scipy.org/SciPy) 1.2.3
 - [`matplotlib`](https://matplotlib.org/) 2.2.5
-- the modules `lattice` and `fiberWalk`
+- the FiberWalk modules `lattice` and `walk`
 
 Older library versions may work, but are not guaranteed to.
 
@@ -18,7 +18,26 @@ Please contact the author for commercial use.
 Please cite the FiberWalk paper if you use the code for your project.
 http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0085585
 
-# Author
+## Running the demo
+
+### Parameters    
+
+Open `demo.py` in a text editor, then search for the following variables:
+
+- `dimensions`: Number of dimensions, defaults to 2.
+- `steps`: Length of the walk, defaults to 100 steps.
+- `walks`: Number of walks to simulate, defaults to 10.
+- `contractions`: Number of contractions per step, defaults to 1.
+
+Then save the file.
+
+### Run
+
+1) Make sure you have Python 2.7, `numpy` 1.16, `scipy` 1.2.3, `matplotlib` 2.2.5, and `networkx` 2.2 properly installed. The Demo may run with older versions, but no guarantee.
+
+2) From the project root, run `python main.py`. Happy walking!
+
+## Author
 
 Author: Alexander Bucksch
 Department of Plant Biology
@@ -63,38 +82,3 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 '''
-
-
-## Running the demo
-
-1.) make sure you have python 2.7, numpy 1.3, scipy 0.9 and networkX 1.7 properly installed
-The Demo may run with older versions, but no guarantee 
-
-2.) copy the files Lattice.py, FiberWalk.py and main.py to a folder your choice.
-
-3.) on the command line, go to the folder of your choice
-
-4.) type: python main.py
-
-5.) The program generates saves plots in the creates subfolder FiberWalks and python pickles of the walk data in the folder you have chosen.
-
-6.) Happy Walking!
-
-Changing walk parameters:
-
-2.) search for the following section
-
-### Configure Parameters    
-
-Open main.py in a text editor, then search for the following variables:
-
-`dimension`: Number of dimensions, defaults to 2.
-`numberOfSteps`: Length of the walk, defaults to 100 steps.
-`numberOfObjects`: Number of walks to simulate, defaults to 10.
-`numberOfContractions`: Number of contractions per step, defaults to 1.
-
-3.) adjust the variables as you wish
-
-4.) save the file and run the demo
-
-5.) Happy Walking!

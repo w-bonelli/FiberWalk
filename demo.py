@@ -76,7 +76,7 @@ from scipy import polyfit, polyval, sqrt
 # simple helper function to generate names to save
 def save_name():
     fname = '_Contraction' + str(contractions) + '_Steps' + str(steps)
-    fpath = './FiberWalks/' + str(dimension) + 'D/'
+    fpath = './FiberWalks/' + str(dimensions) + 'D/'
     print 'Checking directory structure: ' + fpath
     try:
         os.stat(fpath)
@@ -140,14 +140,14 @@ def make_avg_distance_figure(fname, fpath, allDists, numberOfSteps):
     p.close()
 
 
-# Fiber Walk parameters
-dimension = 2  # choose dimension
+# parameters
+dimensions = 2  # choose dimensions
 steps = 100  # choose the length of the walk
 walks = 5  # choose number of walks to be generated
 contractions = 1  # choose number of contractions per step
 
 print 'Initializing Fiber Walk'
-FW = fw.FiberWalk(dimension, walks, contractions)
+FW = fw.FiberWalk(dimensions, walks, contractions)
 print 'The Fiber walks ...'
 FW.walk(steps)
 fname, fpath = save_name()

@@ -143,9 +143,9 @@ class Lattice:
             return self.__GD.node[0, 0]['coord']
         except IndexError:
             if (len(index) < self.__dimension):
-                print 'dimension is smaller then index dimension'
+                print 'dimensions is smaller then index dimensions'
             elif (len(index) > self.__dimension):
-                print 'dimension is bigger then index dimension'
+                print 'dimensions is bigger then index dimensions'
 
         # self.data[key] = item
 
@@ -168,9 +168,9 @@ class Lattice:
             # self.__GD.node[tupel(idx)][item]=value
         except IndexError:
             if (len(key) < self.__dimension):
-                print 'dimension is smaller then index dimension'
+                print 'dimensions is smaller then index dimensions'
             elif (len(key) > self.__dimension):
-                print 'dimension is bigger then index dimension'
+                print 'dimensions is bigger then index dimensions'
 
     def generateLattice(self):
         edgeCounter = 0
