@@ -128,7 +128,7 @@ class Lattice:
 
     # overload []
     def __getitem__(self, index):
-        print "__getitem__"
+        print("__getitem__")
         try:
             idx = list(index)
             if len(index) > self.__dimension: raise IndexError('Dimension is unequal dimensions given by the index')
@@ -137,21 +137,21 @@ class Lattice:
             path = './tmp'
             for d in range(self.__dimension):
                 path = path + '_' + str(idx[d])
-            print self.__GD.node[0, 0]['coord']
+            print(self.__GD.nodes[0, 0]['coord'])
             self.__GD = nx.read_gpickle(path)
-            print self.__GD.node[0, 0]['coord']
-            return self.__GD.node[0, 0]['coord']
+            print(self.__GD.nodes[0, 0]['coord'])
+            return self.__GD.nodes[0, 0]['coord']
         except IndexError:
             if (len(index) < self.__dimension):
-                print 'dimensions is smaller then index dimensions'
+                print('dimensions is smaller then index dimensions')
             elif (len(index) > self.__dimension):
-                print 'dimensions is bigger then index dimensions'
+                print('dimensions is bigger then index dimensions')
 
         # self.data[key] = item
 
     # overload set []
     def __setitem__(self, key, item):
-        print "__setitem__"
+        print("__setitem__")
         try:
             if len(key) > self.__dimension: raise IndexError('Dimension is unequal dimensions given by the index')
             idx = list(key)
@@ -161,16 +161,16 @@ class Lattice:
             path = './tmp'
             for d in range(self.__dimension):
                 path = path + '_' + str(idx[d])
-            print self.__GD.node[0, 0]['coord']
+            print(self.__GD.nodes[0, 0]['coord'])
             self.__GD = nx.read_gpickle(path)
-            print self.__GD.node[0, 0]['coord']
-            print 'set item is not implemented'
+            print(self.__GD.nodes[0, 0]['coord'])
+            print('set item is not implemented')
             # self.__GD.node[tupel(idx)][item]=value
         except IndexError:
             if (len(key) < self.__dimension):
-                print 'dimensions is smaller then index dimensions'
+                print('dimensions is smaller then index dimensions')
             elif (len(key) > self.__dimension):
-                print 'dimensions is bigger then index dimensions'
+                print('dimensions is bigger then index dimensions')
 
     def generateLattice(self):
         edgeCounter = 0
@@ -181,25 +181,25 @@ class Lattice:
         for i in range(self.__dimension):
             dimGrid.append(self.__size)
         G = nx.grid_graph(dimGrid)
-        print 'Gridgraph constructed! size = ' + str(self.__size)
+        print('Gridgraph constructed! size = ' + str(self.__size))
 
         # use a classic Bi-directional graph
-        print 'start adding a Stairway to Heaven '
+        print('start adding a Stairway to Heaven ')
         oldcounter = 0
         for e in G.edges_iter():
             edgeCounter += 1
             ec = edgeCounter / 1000
             if ec > oldcounter:
-                print '.';
+                print('.')
                 oldcounter += ec
-            self.__GD.add_node(e[0], consumed=False, counter=0)
-            self.__GD.add_node(e[1], consumed=False, counter=0)
+            self.__GD.add_nodes(e[0], consumed=False, counter=0)
+            self.__GD.add_nodes(e[1], consumed=False, counter=0)
             if self.__GD.has_edge(e[0], e[1]) == False:
                 self.__GD.add_edge(e[0], e[1], vdir=np.array(e[0]) - np.array(e[1]), SA=False, New=True)
 
             if self.__GD.has_edge(e[1], e[0]) == False:
                 self.__GD.add_edge(e[1], e[0], vdir=np.array(e[1]) - np.array(e[0]), SA=False, New=True)
-        print 'clearing original graph!'
+        print('clearing original graph!')
         G.clear()
 
     def expandlatticeToNeighbours(self, pos):
@@ -308,14 +308,14 @@ class Lattice:
         # generate IDXList
 
         G = nx.grid_graph(dimGrid)
-        print 'start adding a Stairway to Heaven '
+        print('start adding a Stairway to Heaven ')
         oldcounter = 0
         edgeCounter = 0
         for e in G.edges_iter():
             edgeCounter += 1
             ec = edgeCounter / 1000
             if ec > oldcounter:
-                print '.';
+                print('.')
                 oldcounter += ec
             self.__GD.add_node(e[0], consumed=False, counter=0)
             self.__GD.add_node(e[1], consumed=False, counter=0)
@@ -325,10 +325,10 @@ class Lattice:
             if self.__GD.has_edge(e[1], e[0]) == False: self.__GD.add_edge(e[1], e[0],
                                                                            vdir=np.array(e[1]) - np.array(e[0]),
                                                                            SA=False, New=True)
-        print 'clearing original graph from memory!'
+        print('clearing original graph from memory!')
         G.clear()
         for i in range(numberOfPickels):
-            print 'storing the graph'
+            print('storing the graph')
             idx = np.zeros(self.__dimension)
             for d in reversed(range(self.__dimension)):
                 idx[d] = i / (np.power(self.__size / self.__junkSize, d))
@@ -338,14 +338,14 @@ class Lattice:
             path = './tmp'
             for d in reversed(range(self.__dimension, )):
                 path = path + '_' + str(int(idx[d]))
-            print path
+            print(path)
             coords = list(idx)
             for v in self.__GD.nodes():
                 for d in range(self.__dimension):
-                    print v[d]
+                    print(v[d])
                     coords[d] = idx[d] * self.__junkSize + v[d]
-                self.__GD.node[v]['coord'] = tuple(coords)
-                print self.__GD.node[v]
+                self.__GD.nodes[v]['coord'] = tuple(coords)
+                print(self.__GD.nodes[v])
             nx.write_gpickle(self.__GD, path)
 
     dim = property(get_dimension, set_dimension, del_dimension, "dim's docstring")

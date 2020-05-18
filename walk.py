@@ -67,7 +67,7 @@ import numpy as np
 import networkx as nx
 
 
-class FiberWalk():
+class FiberWalk:
 
     def __init__(self, dim, objects=1, contractions=1, min_length=0):
         self.__lattice = L.Lattice(dim)  # the lattice
@@ -139,7 +139,7 @@ class FiberWalk():
     def define_seed(self, pos='center'):
         ret = np.zeros(self.__dim)
         if self.__lattice != 0:
-            n = self.__lattice.get_Lattice().node[tuple(list(ret))]
+            n = self.__lattice.get_Lattice().nodes[tuple(list(ret))]
             # mark the seed as consumed
             n['consumed'] = True
             n['counter'] = 0
@@ -157,10 +157,10 @@ class FiberWalk():
         for i in neighbors:
             if not self.__lattice.get_Lattice()[new_pos][i][0]['SA']:
                 if self.__walk.has_edge(new_pos, i):
-                    print 'BUG !!!!!!'
+                    print('BUG !!!!!!')
                 e = self.__lattice.get_Lattice()[new_pos][i][0]['vdir']
                 # check if the walk does not form a loop -> self avoidance
-                if not self.__lattice.get_Lattice().node[i]['consumed']:
+                if not self.__lattice.get_Lattice().nodes[i]['consumed']:
                     test_back = np.zeros_like(back_edge)
                     for k in range(len(back_edge)):
                         test_back[k] = back_edge[k] + e[k]
@@ -177,7 +177,7 @@ class FiberWalk():
 
             elif not new_walk:
                 if self.__walk.has_edge(i, new_pos):
-                    print 'BUG !!!!!!'
+                    print('BUG !!!!!!')
 
         if len(valid_neighbors) == 0:
             return new_pos, new_pos, True, False
@@ -214,7 +214,7 @@ class FiberWalk():
 
             self.__valid_neighbors.append(len(valid_neighbors))
             # Set vertex as consumed
-            self.__lattice.get_Lattice().node[new_pos]['consumed'] = True;
+            self.__lattice.get_Lattice().nodes[new_pos]['consumed'] = True;
         else:
             stop = True
 
@@ -227,15 +227,15 @@ class FiberWalk():
         path_idx = []
         contraction_neighbors = []
         # Consume the seed ->Don't consume it, otherwise it is not possible to walk out there
-        self.__lattice.get_Lattice().node[oldPos]['consumed'] = True
+        self.__lattice.get_Lattice().nodes[oldPos]['consumed'] = True
         # contract the edges of the newly reached vertex
         neighbors = self.__lattice.get_Lattice().neighbors(tuple(oldPos))
         for i in neighbors:
             if self.__walk.has_edge(oldPos, i):
                 path_idx.append(i)
-            elif not self.__lattice.get_Lattice().node[i]['consumed']:
+            elif not self.__lattice.get_Lattice().nodes[i]['consumed']:
                 valid_neighbors.append(i)
-            elif self.__lattice.get_Lattice().node[i]['consumed']:
+            elif self.__lattice.get_Lattice().nodes[i]['consumed']:
                 if not self.__walk.has_edge(oldPos, i):
                     self.__sa_path_count += 1
                 self.__lattice.get_Lattice()[newPos][i][0]['SA'] = True
@@ -248,7 +248,7 @@ class FiberWalk():
             # make array of S to increment
             newPos = np.array(newPos)
             newPos = tuple(list(newPos))
-            if not self.__lattice.get_Lattice().node[newPos]['consumed']:
+            if not self.__lattice.get_Lattice().nodes[newPos]['consumed']:
                 new_walk = True
             else:
                 new_walk = False
@@ -256,7 +256,7 @@ class FiberWalk():
             e = np.array(oldPos) - np.array(newPos)
             neighbors = self.__lattice.get_Lattice().neighbors(newPos)
 
-            self.__lattice.get_Lattice().node[newPos]['consumed'] = True
+            self.__lattice.get_Lattice().nodes[newPos]['consumed'] = True
 
             if not self.__walk.has_edge(oldPos, newPos):
                 self.__walk.add_node(newPos, counter=1, pos=None, trapped=False)
@@ -292,7 +292,7 @@ class FiberWalk():
             ret = False
         elif i == j:
             ret = False
-        elif self.__lattice.get_Lattice().node[i]['consumed']:
+        elif self.__lattice.get_Lattice().nodes[i]['consumed']:
             if not self.__walk.has_edge(new_pos, i):
                 self.__lattice.get_Lattice()[new_pos][i][0]['SA'] = True
                 self.__lattice.get_Lattice()[i][new_pos][0]['SA'] = True
@@ -387,11 +387,11 @@ class FiberWalk():
             #            if it is not the back edge
             if not testEq:
                 # check for self avoidance
-                if not self.__lattice.get_Lattice().node[i]['consumed']:
+                if not self.__lattice.get_Lattice().nodes[i]['consumed']:
                     contraction_neighbors.append(i)
                     self.__contr_count += 1
                 # check if there is space otherwise move the walk to the opposite position
-                elif self.__lattice.get_Lattice()[new_pos][i][0]['Contr'] < self.__lattice.get_Lattice().node[new_pos][
+                elif self.__lattice.get_Lattice()[new_pos][i][0]['Contr'] < self.__lattice.get_Lattice().nodes[new_pos][
                     'counter']:
                     return False
 
@@ -424,9 +424,9 @@ class FiberWalk():
                             self.__lattice.get_Lattice().remove_edge(i, j)
                         if self.__lattice.get_Lattice().has_edge(j, i):
                             self.__lattice.get_Lattice().remove_edge(j, i)
-                        self.__lattice.get_Lattice().node[new_pos]['pos'] = None
-                        self.__lattice.get_Lattice().node[new_pos]['Contr'] += 1
-                        self.__lattice.get_Lattice().node[j]['pos'] = None
+                        self.__lattice.get_Lattice().nodes[new_pos]['pos'] = None
+                        self.__lattice.get_Lattice().nodes[new_pos]['Contr'] += 1
+                        self.__lattice.get_Lattice().nodes[j]['pos'] = None
             self.__lattice.get_Lattice().remove_node(i)
             self.__lattice.add_lostNode(i)
 
@@ -480,8 +480,8 @@ class FiberWalk():
                 newPos = self.__positions[0][1]
 
                 if not restart_active:
-                    print 'step: ' + str(step_count_tmp) + ' of Walk Nr. ' + str(n + 1) + '/' + str(
-                        self.__objects)
+                    print('step: ' + str(step_count_tmp) + ' of Walk Nr. ' + str(n + 1) + '/' + str(
+                        self.__objects))
                     step_count_tmp += 1
                     if step_count_max - step_count_tmp > 20:
                         step_count_max = step_count_tmp
@@ -530,12 +530,12 @@ class FiberWalk():
                                                                                                                old_pos,
                                                                                                                new_walk)
                 elif old_pos == newPos:
-                    print 'Walk reached stopping configuration at step ' + str(step_count_tmp)
+                    print('Walk reached stopping configuration at step ' + str(step_count_tmp))
                     # restart condition
                     if len(self.__distances_to_origin) < steps + 1:
                         if step_count_tmp > 2:
                             if restart_count < steps:
-                                print 'restart the Fiber Walk'
+                                print('restart the Fiber Walk')
                                 if old_step_count >= step_count_tmp:
                                     step_count_tmp = step_count_max - 1
                                     # preventing getting negative step numbers. Step 1 is never trapped.
@@ -610,3 +610,4 @@ class FiberWalk():
             self.__all_walks_sa_paths.append(self.__all_sa_paths)
             self.__allWalksContr.append(self.__all_contr)
             self.__all_walk_distances.append(self.__all_distances_to_origin)
+

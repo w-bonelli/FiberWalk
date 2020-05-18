@@ -66,18 +66,16 @@ import walk as fw
 import os
 import pickle
 import networkx as nx
-import matplotlib
-matplotlib.use('TkAgg')
 import pylab as p
 import numpy as np
-from scipy import polyfit, polyval, sqrt
+from mayavi import mlab
 
 
 # simple helper function to generate names to save
 def save_name():
     fname = '_Contraction' + str(contractions) + '_Steps' + str(steps)
     fpath = './FiberWalks/' + str(dimensions) + 'D/'
-    print 'Checking directory structure: ' + fpath
+    print('Checking directory structure: ' + fpath)
     try:
         os.stat(fpath)
     except:
@@ -113,11 +111,11 @@ def make_avg_distance_figure(fname, fpath, allDists, numberOfSteps):
     a = logY[30:minL]
     b = logDists[30:minL]
     # TODO: polyfit fails for small walk lengths (e.g., 10). Why?
-    (ar, br) = polyfit(a, b, 1)
-    xr = polyval([ar, br], logY[30:minL])
+    (ar, br) = np.polyfit(a, b, 1)
+    xr = np.polyval([ar, br], logY[30:minL])
     xr = np.exp(xr)
     # compute the mean square error
-    err = sqrt(sum((xr - logDists[30:minL]) ** 2) / len(logDists[30:minL]))
+    err = np.sqrt(sum((xr - logDists[30:minL]) ** 2) / len(logDists[30:minL]))
     print('Linear regression using polyfit')
     print('Regression: a=%.2f b=%.2f' % (ar, br))
 
@@ -135,20 +133,20 @@ def make_avg_distance_figure(fname, fpath, allDists, numberOfSteps):
     p.title('Mean Square Distance per step')
     p.text(60, 20, 'y=' + str(np.around(ar, 2)) + 'x+' + str(np.around(br, 2)))
     p.text(50, 30, '#walks: ' + str(numberOfWalksArray[0]))
-    print 'save plot to ' + fpath
+    print('save plot to ' + fpath)
     p.savefig(fpath + fname + '_avg')
     p.close()
 
 
 # parameters
-dimensions = 2  # choose dimensions
-steps = 100  # choose the length of the walk
-walks = 5  # choose number of walks to be generated
+dimensions = 3  # choose dimensions
+steps = 50  # choose the length of the walk
+walks = 1  # choose number of walks to be generated
 contractions = 1  # choose number of contractions per step
 
-print 'Initializing Fiber Walk'
+print('Initializing Fiber Walk')
 FW = fw.FiberWalk(dimensions, walks, contractions)
-print 'The Fiber walks ...'
+print('The Fiber walks ...')
 FW.walk(steps)
 fname, fpath = save_name()
 
@@ -169,9 +167,19 @@ infile = open('./dists' + fname, 'rb')
 distsLoad = nx.read_gpickle(infile)
 infile.close()
 
+print('The Fiber walked ;-)')
+
 # show data
-print 'Example of showing loaded data'
-print distsLoad
-# make a plot
+print('Example of showing loaded data')
+print(distsLoad)
+# plot avg distance
 make_avg_distance_figure(fname, fpath, distsLoad, steps)
-print 'The Fiber walked ;-)'
+
+if dimensions == 3:
+    print('Showing 3D interactive graphic')
+    nodes = walk.nodes()
+    x = [node[0] for node in nodes]
+    y = [node[1] for node in nodes]
+    z = [node[2] for node in nodes]
+    p = mlab.plot3d(x, y, z)
+    mlab.show()

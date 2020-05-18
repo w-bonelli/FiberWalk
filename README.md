@@ -1,16 +1,16 @@
 # FiberWalk
 
 The Fiberwalk demo depends on:
-- Python 2.7
-- [`networkx`](http://networkx.lanl.gov/) 2.2
-- [`numpy`](http://sourceforge.net/projects/numpy/) 1.16
-- [`scipy`](http://www.scipy.org/SciPy) 1.2.3
-- [`matplotlib`](https://matplotlib.org/) 2.2.5
+- Python 3.7
+- [`networkx`](http://networkx.lanl.gov/) 2.4
+- [`numpy`](http://sourceforge.net/projects/numpy/) 1.18.4
+- [`mayavi`](https://docs.enthought.com/mayavi/mayavi/mlab.html) 4.7.1
+- `PyQt5` 5.14.2
 - the FiberWalk modules `lattice` and `walk`
 
 Older library versions may work, but are not guaranteed to.
 
-The graphics shown in the paper where generated with [mayavi2](http://docs.enthought.com/mayavi/mayavi/index.html).
+The graphics shown in the paper where generated with [`mayavi`](http://docs.enthought.com/mayavi/mayavi/index.html).
 
 The code is free for non-commercial use.
 Please contact the author for commercial use.
