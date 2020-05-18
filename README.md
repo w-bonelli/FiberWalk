@@ -24,10 +24,10 @@ http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0085585
 
 Open `demo.py` in a text editor, then search for the following variables:
 
-- `dimensions`: Number of dimensions, defaults to 2.
-- `steps`: Length of the walk, defaults to 100 steps.
-- `walks`: Number of walks to simulate, defaults to 10.
-- `contractions`: Number of contractions per step, defaults to 1.
+- `dimensions`: number of dimensions
+- `steps`: length of the walk (number of steps)
+- `walks`: number of walks to simulate
+- `contractions`: number of contractions per step
 
 Then save the file.
 
