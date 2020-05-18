@@ -33,9 +33,7 @@ Then save the file.
 
 ### Run
 
-1) Make sure you have Python 2.7, `numpy` 1.16, `scipy` 1.2.3, `matplotlib` 2.2.5, and `networkx` 2.2 properly installed. The demo may run with older versions, but no guarantee.
-
-2) From the project root, run `python demo.py`. Happy walking!
+From the project root, run `python demo.py`. Happy walking!
 
 ## Author
 
