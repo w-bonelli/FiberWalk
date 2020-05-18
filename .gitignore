@@ -5,3 +5,5 @@ output*
 .idea/
 *.pyc
 venv/
+lattice_*
+walk_*
